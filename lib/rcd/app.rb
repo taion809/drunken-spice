@@ -8,6 +8,7 @@ class RCD::App < Sinatra::Base
         set :rcd_config,  RCD::ConfigLoader.new.load('config')
         set :job_files,   RCD::JobLoader.new.load(settings.rcd_config['job_directory'])
         set :jobs,        RCD::JobRunner.new(settings.job_files)
+        enable :logging
     end
 
     get '/' do
@@ -20,7 +21,11 @@ class RCD::App < Sinatra::Base
             redirect to('/')
         end
 
+        logger.info "Requesting Job: #{j}\n"
+        logger.info JSON.parse request.body.read
+        
         settings.jobs.run(j)
+
         redirect to('/')
     end
 end
