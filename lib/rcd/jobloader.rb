@@ -10,7 +10,6 @@ module RCD
             if job_directory.nil?
                 return nil
             end
-
             job_directory = File.absolute_path(job_directory)
 
             files = load_directory(job_directory)
