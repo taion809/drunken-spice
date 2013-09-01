@@ -21,8 +21,8 @@ class RCD::App < Sinatra::Base
             redirect to('/')
         end
 
-        logger.info "Requesting Job: #{j}\n"
-        logger.info JSON.parse request.body.read
+        logger.info "Payload?\n\t"
+        logger.info JSON.parse params[:payload]
         
         settings.jobs.run(j)
 
